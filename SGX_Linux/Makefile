@@ -1,8 +1,8 @@
 SGX_SDK ?= /opt/intel/sgxsdk
 SGX_MODE ?= SIM
 SGX_ARCH ?= x64
-SGX_WOLFSSL_LIB ?= ./
-
+SGX_WOLFSSL_LIB ?= ~/git/wolfssl/IDE/LINUX-SGX
+WOLFSSL_ROOT ?= ./../wolfssl
 ifndef WOLFSSL_ROOT
 $(error WOLFSSL_ROOT is not set. Please set to root wolfssl directory)
 endif

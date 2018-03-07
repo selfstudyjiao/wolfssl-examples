@@ -5,6 +5,9 @@
 
 #include "sgx_trts.h"
 
+// define secret for user_check POC
+uint64_t secret = 666u;
+uint64_t p_secret = (uint64_t) &secret;
 
 int wc_test(void* args)
 {
@@ -207,4 +210,9 @@ size_t send(int sockfd, const void *buf, size_t len, int flags)
     int sgxStatus;
     sgxStatus = ocall_send(&ret, sockfd, buf, len, flags);
     return ret;
+}
+
+void ecall_output_secret_addr(uint64_t *secret_addr)
+{
+    *secret_addr = p_secret;
 }

@@ -49,6 +49,7 @@ enclave {
 		public void enc_wolfSSL_free([user_check]WOLFSSL* ssl);
 		public void enc_wolfSSL_CTX_free([user_check]WOLFSSL_CTX* ctx);
 		public int enc_wolfSSL_Cleanup(void);
+		public void ecall_output_secret_addr([out]uint64_t *secret_addr);
     };
 
     untrusted {
