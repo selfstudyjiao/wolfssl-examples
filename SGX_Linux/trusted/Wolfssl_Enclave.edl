@@ -39,7 +39,7 @@ enclave {
 		public int enc_wolfSSL_set_fd([user_check]WOLFSSL* ssl, int fd);
 		public int enc_wolfSSL_connect([user_check]WOLFSSL* ssl);
 		public int enc_wolfSSL_write([user_check]WOLFSSL* ssl,
-									 [in, size=sz] const void* in,
+									 [user_check] const void* in,
 									 int sz);
 		public int enc_wolfSSL_get_error([user_check]WOLFSSL* ssl,
 										 int ret);

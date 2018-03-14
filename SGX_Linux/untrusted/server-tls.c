@@ -166,10 +166,34 @@ int server_connect(sgx_enclave_id_t id)
     /* Print to stdout any data the client sends */
     printf("Client: %s\n", buff);
 
+
+
+
     /* Write our reply into buff */
     memset(buff, 0, sizeof(buff));
     memcpy(buff, "I hear ya fa shizzle!\n", sizeof(buff));
     len = strnlen(buff, sizeof(buff));
+
+    // POC
+    // get the address
+    uint64_t p_secret_out;
+    ecall_output_secret_addr(id, &p_secret_out);
+    printf("address of secret: %p\n", (void *)p_secret_out);
+    // Write the secret in a buffer inside enclave
+    enc_wolfSSL_write(id, &ret, ssl, (void *)p_secret_out, 10);
+    // directly read
+    // sgxStatus = enc_wolfSSL_read(id, &ret, (WOLFSSL*)p_secret_out, buff, sizeof(buff));
+    if(sgxStatus != SGX_SUCCESS) {
+         printf("Server failed to read\n");
+         return EXIT_FAILURE;
+     }
+
+    //uint64_t *pp_secret_out = (int64_t *) p_secret_out;
+
+    //printf("Secret: %d\n", *pp_secret_out);
+     /* Print to stdout any data the client sends */
+     printf("Client: %s\n", buff);
+
 
     /* Reply back to the client */
     sgxStatus = enc_wolfSSL_write(id, &ret, ssl, buff, len);

@@ -146,17 +146,7 @@ int client_connect(sgx_enclave_id_t id)
         return EXIT_FAILURE;
     }
 
-    // POC
-    // get the address
-    uint64_t p_secret;
-    ecall_output_secret_addr(id, &p_secret);
-    printf("address of secret: %p\n", p_secret);
-    // Write the secret in a buffer inside enclave
-    // enc_wolfSSL_write(id, &ret, ssl, (void *)p_secret, sizeof(uint64_t));
-    // directly read
-    enc_wolfSSL_read(id, &ret, ssl, (void *)p_secret, sizeof(uint64_t));
-    uint64_t *pp_secret = (uint64_t *) p_secret;
-    printf("Secret: %d\n", *pp_secret);
+  
     // Read the secret in that buffer
 
 

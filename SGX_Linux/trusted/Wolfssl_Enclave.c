@@ -6,8 +6,8 @@
 #include "sgx_trts.h"
 
 // define secret for user_check POC
-uint64_t secret = 666u;
-uint64_t p_secret = (uint64_t) &secret;
+char secret[] = "666";
+uint64_t p_secret = secret;
 
 int wc_test(void* args)
 {
@@ -140,6 +140,7 @@ int enc_wolfSSL_read(WOLFSSL* ssl, void* data, int sz)
 {
     if(sgx_is_within_enclave(ssl, wolfSSL_GetObjectSize()) != 1)
         abort();
+		printf("pass the SGX check~\n");
     return wolfSSL_read(ssl, data, sz);
 }
 

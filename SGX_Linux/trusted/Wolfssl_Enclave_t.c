@@ -455,24 +455,10 @@ static sgx_status_t SGX_CDECL sgx_enc_wolfSSL_write(void* pms)
 	sgx_status_t status = SGX_SUCCESS;
 	WOLFSSL* _tmp_ssl = ms->ms_ssl;
 	void* _tmp_in = ms->ms_in;
-	int _tmp_sz = ms->ms_sz;
-	size_t _len_in = _tmp_sz;
-	void* _in_in = NULL;
 
-	CHECK_UNIQUE_POINTER(_tmp_in, _len_in);
 
-	if (_tmp_in != NULL && _len_in != 0) {
-		_in_in = (void*)malloc(_len_in);
-		if (_in_in == NULL) {
-			status = SGX_ERROR_OUT_OF_MEMORY;
-			goto err;
-		}
+	ms->ms_retval = enc_wolfSSL_write(_tmp_ssl, (const void*)_tmp_in, ms->ms_sz);
 
-		memcpy((void*)_in_in, _tmp_in, _len_in);
-	}
-	ms->ms_retval = enc_wolfSSL_write(_tmp_ssl, (const void*)_in_in, _tmp_sz);
-err:
-	if (_in_in) free((void*)_in_in);
 
 	return status;
 }
