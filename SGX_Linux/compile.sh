@@ -1,0 +1,2 @@
+#!/bin/bash
+make clean && make SGX_MODE=SIM SGX_PRERELEASE=0 SGX_WOLFSSL_LIB=~/git/wolfssl/IDE/LINUX-SGX/ WOLFSSL_ROOT=../../wolfssl SGX_DEBUG=0 HAVE_WOLFSSL_TEST=1
